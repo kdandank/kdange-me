@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Pre-commit hook for kdange-me-portfolio
+#
+# Rules:
+#   _body.html staged  → rebuild index.html via build.py and re-stage it
+#   index.html staged  → blocked (it's generated; edit _body.html instead)
+#   index.php staged   → verify the _body.html include line is still present
+
+set -euo pipefail
+
+BODY="portfolio/_body.html"
+HTML="portfolio/index.html"
+PHP="portfolio/index.php"
+
+body_staged=$(git diff --cached --name-only | grep -c "^${BODY}$" || true)
+html_staged=$(git diff --cached --name-only | grep -c "^${HTML}$" || true)
+php_staged=$(git diff --cached --name-only  | grep -c "^${PHP}$"  || true)
+
+# Block direct edits to the generated file
+if [[ $html_staged -gt 0 && $body_staged -eq 0 ]]; then
+  echo ""
+  echo "  ✗  portfolio/index.html is generated — do not edit it directly."
+  echo "     Edit portfolio/_body.html instead, then run:"
+  echo "       python3 portfolio/build.py"
+  echo ""
+  exit 1
+fi
+
+# Guard the PHP include reference
+if [[ $php_staged -gt 0 ]]; then
+  if ! grep -q "include.*_body\.html" "$PHP"; then
+    echo ""
+    echo "  ✗  index.php no longer references _body.html."
+    echo "     Restore the include line:"
+    echo "       <?php include __DIR__ . '/_body.html'; ?>"
+    echo ""
+    exit 1
+  fi
+fi
+
+# Rebuild index.html when body content changes
+if [[ $body_staged -gt 0 ]]; then
+  echo "🔄  _body.html changed — rebuilding index.html..."
+  python3 portfolio/build.py
+  git add "$HTML"
+  echo "✅  index.html rebuilt and staged."
+fi

@@ -1,0 +1,102 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'portfolio/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+
+  # ── Sync check — runs on every push ──────────────────────────────────────
+  test-sync:
+    name: Verify index.html is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild index.html from _body.html
+        run: python3 portfolio/build.py
+
+      - name: Fail if index.html differs from build output
+        run: |
+          if ! git diff --exit-code portfolio/index.html; then
+            echo ""
+            echo "  ✗  index.html is out of sync with _body.html."
+            echo "     Run 'python3 portfolio/build.py' locally and commit the result."
+            echo ""
+            exit 1
+          fi
+
+      - name: Verify index.php includes _body.html
+        run: |
+          if ! grep -q "include.*_body\.html" portfolio/index.php; then
+            echo "  ✗  index.php does not reference _body.html."
+            exit 1
+          fi
+          echo "✅  index.php correctly includes _body.html."
+
+  # ── Option A: GitHub Pages (active — free, recommended) ──────────────────
+  deploy-github-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: test-sync
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload portfolio as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: portfolio
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ── Option B: WordPress.com Business plan (commented out) ────────────────
+  # Uncomment and swap needs: to 'test-sync' if you upgrade to WP.com Business.
+  #
+  # Required secrets: WPCOM_TOKEN, WPCOM_SITE_ID
+  #
+  # deploy-wpcom:
+  #   name: Deploy to WordPress.com
+  #   runs-on: ubuntu-latest
+  #   needs: test-sync
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Zip theme
+  #       run: |
+  #         cd portfolio
+  #         zip -r ../kd-portfolio.zip . --exclude "*.html"
+  #
+  #     - name: Upload theme to WP.com
+  #       run: |
+  #         curl -sS -X POST \
+  #           -H "Authorization: Bearer ${{ secrets.WPCOM_TOKEN }}" \
+  #           -F "zip_file=@kd-portfolio.zip" \
+  #           "https://public-api.wordpress.com/rest/v1.1/sites/${{ secrets.WPCOM_SITE_ID }}/themes/upload"
+  #
+  #     - name: Activate theme on WP.com
+  #       run: |
+  #         curl -sS -X POST \
+  #           -H "Authorization: Bearer ${{ secrets.WPCOM_TOKEN }}" \
+  #           -H "Content-Type: application/json" \
+  #           -d '{"theme": "kd-portfolio"}' \
+  #           "https://public-api.wordpress.com/rest/v1.1/sites/${{ secrets.WPCOM_SITE_ID }}/themes/mine"

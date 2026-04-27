@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Post-commit: spell-check portfolio/_body.html and report findings.
+# Never blocks — always exits 0.
+
+BODY="portfolio/_body.html"
+IGNORE=".codespell-ignore"
+
+if ! command -v codespell &>/dev/null; then
+  echo ""
+  echo "  📝  Spell check skipped (codespell not installed)."
+  echo "      Run: pip install -r requirements-dev.txt"
+  echo ""
+  exit 0
+fi
+
+output=$(codespell "$BODY" --ignore-words "$IGNORE" 2>&1)
+
+echo ""
+if [[ -z "$output" ]]; then
+  echo "  📝  Spell check passed — no issues in $BODY."
+else
+  echo "  📝  Spell check findings in $BODY:"
+  echo ""
+  echo "$output" | sed 's/^/      /'
+  echo ""
+  echo "      Fix with:   codespell -w $BODY --ignore-words $IGNORE"
+  echo "      Ignore word: add it to $IGNORE"
+fi
+echo ""
+
+exit 0

@@ -1,0 +1,8 @@
+name: kd-portfolio
+channels:
+  - defaults
+dependencies:
+  - python>=3.8
+  - pip
+  - pip:
+      - codespell>=2.0

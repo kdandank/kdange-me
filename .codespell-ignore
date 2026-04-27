@@ -1,0 +1,22 @@
+# Words to ignore during spell check.
+# One word per line, case-insensitive.
+# Add project-specific proper nouns, acronyms, and tech terms here.
+
+# Proper names
+kshitiz
+dange
+kdange
+
+# Company / institution abbreviations
+gsk
+cmu
+
+# Tech / CS terms codespell may not know
+paxos
+ia32
+hpc
+deduplication
+
+# Portfolio UI text
+shih
+thiz
