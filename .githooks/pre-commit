@@ -19,7 +19,7 @@ php_staged=$(git diff --cached --name-only  | grep -c "^${PHP}$"  || true)
 # Block direct edits to the generated file
 if [[ $html_staged -gt 0 && $body_staged -eq 0 ]]; then
   echo ""
-  echo "  ✗  portfolio/index.html is generated — do not edit it directly."
+  echo "  ✗  portfolio/index.html is generated; do not edit it directly."
   echo "     Edit portfolio/_body.html instead, then run:"
   echo "       python3 portfolio/build.py"
   echo ""
@@ -40,7 +40,7 @@ fi
 
 # Rebuild index.html when body content changes
 if [[ $body_staged -gt 0 ]]; then
-  echo "🔄  _body.html changed — rebuilding index.html..."
+  echo "🔄  _body.html changed, rebuilding index.html..."
   python3 portfolio/build.py
   git add "$HTML"
   echo "✅  index.html rebuilt and staged."

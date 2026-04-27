@@ -2,7 +2,7 @@
 """
 Spell-check test for portfolio/_body.html.
 
-Always passes — findings are printed as warnings, never as failures.
+Always passes; findings are printed as warnings, never as failures.
 This mirrors what the post-commit hook reports, so you can run it anytime
 without worrying about it blocking a pipeline.
 
@@ -44,7 +44,7 @@ class TestSpellCheck(unittest.TestCase):
                 f"\n      Ignore a word: add it to .codespell-ignore\n",
                 file=sys.stderr,
             )
-        # No assertion — this test always passes regardless of findings
+        # No assertion; this test always passes regardless of findings
 
     @classmethod
     def setUpClass(cls):
@@ -54,7 +54,7 @@ class TestSpellCheck(unittest.TestCase):
         )
         if result.returncode != 0:
             raise unittest.SkipTest(
-                "codespell not installed — run: pip install -r requirements-dev.txt"
+                "codespell not installed; run: pip install -r requirements-dev.txt"
             )
 
 

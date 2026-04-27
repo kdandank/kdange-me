@@ -1,4 +1,4 @@
-# kdange.me — Portfolio
+# kdange.me Portfolio
 
 Personal portfolio for **Kshitiz Dange (KD)** at [www.kdange.me](https://www.kdange.me).
 
@@ -55,7 +55,7 @@ After editing, rebuild the static entry point:
 python3 portfolio/build.py
 ```
 
-Then commit normally — the pre-commit hook rebuilds and stages `index.html` automatically.
+Then commit normally; the pre-commit hook rebuilds and stages `index.html` automatically.
 
 **Do not edit `index.html` directly.** It is generated and will be overwritten on the next build.
 
@@ -65,9 +65,9 @@ Then commit normally — the pre-commit hook rebuilds and stages `index.html` au
 
 ```
 portfolio/
-  _body.html        ← EDIT THIS — all page sections (nav → footer)
+  _body.html        ← EDIT THIS: all page sections (nav → footer)
   build.py          ← generates index.html from _body.html
-  index.html        ← GENERATED — static site entry (GitHub Pages)
+  index.html        ← GENERATED: static site entry (GitHub Pages)
   index.php         ← WordPress theme entry (includes _body.html at runtime)
   functions.php     ← WordPress asset enqueuing
   style.css         ← styles (includes WordPress theme header)
@@ -101,7 +101,7 @@ setup-github.sh     ← one-time GitHub branch protection + squash-merge config
 python3 -m unittest discover -s tests -v
 ```
 
-**test_sync.py** (9 tests — these must pass; PR merges are blocked if they fail):
+**test_sync.py** (9 tests; these must pass; PR merges are blocked if they fail):
 - `_body.html` has all expected section markers
 - `index.html` is correctly assembled from `_body.html`
 - `index.php` includes `_body.html`
@@ -110,7 +110,7 @@ python3 -m unittest discover -s tests -v
 - Staging unrelated files passes through silently (hook scenario 3)
 - Removing the `_body.html` include from `index.php` is blocked
 
-**test_spellcheck.py** (1 test — always passes; findings are informational):
+**test_spellcheck.py** (1 test; always passes; findings are informational):
 - Spell-checks `_body.html` and prints any issues to stderr
 - Skips automatically if `codespell` is not installed
 
@@ -130,21 +130,10 @@ python3 -m http.server 8080
 
 ### GitHub Pages (active)
 
-1. Push to `main` — the workflow runs automatically.
+1. Push to `main`; the workflow runs automatically.
 2. First time only: go to **Settings → Pages → Source** and select `GitHub Actions`.
 3. Add your custom domain (`kdange.me`) under **Settings → Pages → Custom domain**.
 4. Add a `CNAME` DNS record pointing `www.kdange.me` → `<your-github-username>.github.io`.
-
-### WordPress.com Business (optional upgrade path)
-
-Uncomment the `deploy-wpcom` job in `.github/workflows/deploy.yml` and add two repository secrets:
-
-| Secret | Value |
-|---|---|
-| `WPCOM_TOKEN` | OAuth token from [developer.wordpress.com](https://developer.wordpress.com/apps/) |
-| `WPCOM_SITE_ID` | Your site ID or domain (e.g. `kdange.me`) |
-
-> Requires WordPress.com **Business plan** or higher. Not available on Personal or Premium.
 
 ---
 

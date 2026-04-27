@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme functions — only relevant when deployed to WordPress.com Business plan.
+ * Theme functions: only relevant when deployed to WordPress.com Business plan.
  * For GitHub Pages / Netlify deployments, this file is ignored.
  */
 

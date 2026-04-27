@@ -12,13 +12,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 HEAD = """\
 <!DOCTYPE html>
-<!-- GENERATED — do not edit directly. Edit _body.html, then run: python3 build.py -->
+<!-- GENERATED: do not edit directly. Edit _body.html, then run: python3 build.py -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KD — Kshitiz Dange | Product Leader</title>
-  <meta name="description" content="Kshitiz Dange (KD) — Product Leader specializing in Platform Products and HPC. Open to remote, Boston, and Bay Area opportunities." />
+  <title>KD: Kshitiz Dange | Product Leader</title>
+  <meta name="description" content="Kshitiz Dange (KD), Product Leader specializing in Platform Products and HPC. Open to remote, Boston, and Bay Area opportunities." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
