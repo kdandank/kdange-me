@@ -152,7 +152,7 @@ class TestPreCommitHook(unittest.TestCase):
     independent and leave the real repo untouched.
     """
 
-    # Scenario 1 — the one you want to always be able to run:
+    # Scenario 1: the one you want to always be able to run:
     # Editing _body.html triggers auto-rebuild and re-stage of index.html
     def test_body_edit_triggers_rebuild_and_restage(self):
         tmpdir = make_isolated_repo()

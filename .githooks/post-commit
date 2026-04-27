@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Post-commit: spell-check portfolio/_body.html and report findings.
-# Never blocks — always exits 0.
+# Never blocks; always exits 0.
 
 BODY="portfolio/_body.html"
 IGNORE=".codespell-ignore"
@@ -17,7 +17,7 @@ output=$(codespell "$BODY" --ignore-words "$IGNORE" 2>&1)
 
 echo ""
 if [[ -z "$output" ]]; then
-  echo "  📝  Spell check passed — no issues in $BODY."
+  echo "  📝  Spell check passed, no issues in $BODY."
 else
   echo "  📝  Spell check findings in $BODY:"
   echo ""

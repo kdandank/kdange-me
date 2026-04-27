@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
 
-  # ── Sync check — runs on every push ──────────────────────────────────────
+  # ── Sync check: runs on every push ──────────────────────────────────────
   test-sync:
     name: Verify index.html is up to date
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
           fi
           echo "✅  index.php correctly includes _body.html."
 
-  # ── Option A: GitHub Pages (active — free, recommended) ──────────────────
+  # ── Option A: GitHub Pages (active, free, recommended) ──────────────────
   deploy-github-pages:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
