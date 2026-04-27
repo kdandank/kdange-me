@@ -132,6 +132,19 @@ section {
 }
 .nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
 
+.nav-resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--dim) !important;
+  color: var(--dim) !important;
+  padding: 0.3rem 0.8rem !important;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  transition: border-color var(--transition), color var(--transition);
+}
+.nav-resume-btn:hover { border-color: var(--text) !important; color: var(--text) !important; background: transparent !important; }
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -665,6 +678,17 @@ section {
   flex-wrap: wrap;
   gap: 0.4rem;
 }
+
+.projects-subsection {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 2.5rem 0 1.25rem;
+}
+.projects-subsection::before { content: "// "; opacity: 0.5; }
 
 .projects-footer {
   margin-top: 2rem;
