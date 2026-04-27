@@ -135,17 +135,6 @@ python3 -m http.server 8080
 3. Add your custom domain (`kdange.me`) under **Settings → Pages → Custom domain**.
 4. Add a `CNAME` DNS record pointing `www.kdange.me` → `<your-github-username>.github.io`.
 
-### WordPress.com Business (optional upgrade path)
-
-Uncomment the `deploy-wpcom` job in `.github/workflows/deploy.yml` and add two repository secrets:
-
-| Secret | Value |
-|---|---|
-| `WPCOM_TOKEN` | OAuth token from [developer.wordpress.com](https://developer.wordpress.com/apps/) |
-| `WPCOM_SITE_ID` | Your site ID or domain (e.g. `kdange.me`) |
-
-> Requires WordPress.com **Business plan** or higher. Not available on Personal or Premium.
-
 ---
 
 ## CI
