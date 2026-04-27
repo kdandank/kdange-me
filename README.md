@@ -72,6 +72,12 @@ portfolio/
   functions.php     ← WordPress asset enqueuing
   style.css         ← styles (includes WordPress theme header)
   script.js         ← animations and interactivity
+  assets/
+    images/
+      favicon.png   ← circular-cropped profile photo (64×64, used as browser icon)
+      profile.png   ← full profile photo source
+    resume/
+      KshitizDangeResume_4_26.pdf ← resume (linked from nav + hero)
 
 tests/
   test_sync.py      ← 9 tests: build system + pre-commit hook scenarios
