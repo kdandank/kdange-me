@@ -30,12 +30,13 @@ document.querySelectorAll('.timeline-item, .project-card, .skill-group, .edu-car
 });
 
 // Terminal typing effect in hero
-const typingCursor = document.getElementById('typing-cursor');
+const typingContainer = document.getElementById('typing-cursor')?.parentElement;
 const phrases = [
   'build --outcome-driven-products',
   'ship --platform-at-scale',
   'lead --eng-biz-translation',
   'solve --hard-problems',
+  'hola 👋🏼',
 ];
 let phraseIdx = 0;
 let charIdx = 0;
@@ -45,7 +46,7 @@ function type() {
   const current = phrases[phraseIdx];
   if (!deleting) {
     charIdx++;
-    if (typingCursor) typingCursor.parentElement.innerHTML =
+    if (typingContainer) typingContainer.innerHTML =
       `<span class="prompt">$</span> ${current.slice(0, charIdx)}<span id="typing-cursor" class="cursor-blink">█</span>`;
     if (charIdx === current.length) {
       deleting = true;
@@ -54,7 +55,7 @@ function type() {
     }
   } else {
     charIdx--;
-    if (typingCursor) typingCursor.parentElement.innerHTML =
+    if (typingContainer) typingContainer.innerHTML =
       `<span class="prompt">$</span> ${current.slice(0, charIdx)}<span id="typing-cursor" class="cursor-blink">█</span>`;
     if (charIdx === 0) {
       deleting = false;
